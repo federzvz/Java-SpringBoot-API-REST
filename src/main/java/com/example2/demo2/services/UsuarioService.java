@@ -41,13 +41,17 @@ public class UsuarioService {
 
     public boolean verificarEmail(String email){
         List<UsuarioModel> users = new ArrayList<>();
-        users=usuarioRepository.findByEmail(email);
+        users=usuarioRepository.findAllByEmail(email);
         for(int i=0;i<users.size();i++){
             if(users.get(i).getEmail().equalsIgnoreCase(email)){
                 return false;
             }
         }
         return true;
+    }
+
+    public ArrayList<UsuarioModel> obtenerPorEmail(String email){
+        return usuarioRepository.findByEmail(email);
     }
 
 }

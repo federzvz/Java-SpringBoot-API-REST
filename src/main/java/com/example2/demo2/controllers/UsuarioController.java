@@ -60,5 +60,10 @@ public class UsuarioController {
         return "No se ha podido eliminar el usuario con id: "+id;
     }
 
+    @GetMapping("/email")
+    public ArrayList<UsuarioModel> obtenerUsuarioPorEmail(@RequestParam("email") String email){
+        return this.usuarioService.obtenerPorEmail(email);
+    }
+
 
 }
