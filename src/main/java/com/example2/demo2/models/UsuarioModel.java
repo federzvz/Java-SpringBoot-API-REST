@@ -17,10 +17,23 @@ public class UsuarioModel {
     private String sexo;
     private Integer edad;
 
+    /**
+     * Constructor por defecto de la clase UsuarioModel
+     */
     public UsuarioModel(){
 
     }
 
+    /**
+     * Constructor completo de la clase UsuarioModel
+     * @param id Id del usuario
+     * @param nombre nombre del usuario
+     * @param email email del usuario
+     * @param prioridad numero de prioridad del usuario
+     * @param telefono telefono del usuario
+     * @param sexo sexo del usuario
+     * @param edad edad del usuario
+     */
     public UsuarioModel(long id, String nombre, String email, Integer prioridad, String telefono, String sexo, Integer edad) {
         this.id = id;
         this.nombre = nombre;
