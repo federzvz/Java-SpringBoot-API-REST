@@ -31,8 +31,11 @@ public class UsuarioController {
             return new ResponseEntity("La edad "+user.getEdad()+" es inválida.", HttpStatus.UNPROCESSABLE_ENTITY);
         }
         try{
-            usuarioService.guardarUsuario(user);
-            return new ResponseEntity<>(HttpStatus.OK);
+            if(usuarioService.verificarEmail(user.getEmail())){
+                usuarioService.guardarUsuario(user);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            return new ResponseEntity("El email ingresado ya está registrado.", HttpStatus.CONFLICT);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -56,4 +59,6 @@ public class UsuarioController {
         }
         return "No se ha podido eliminar el usuario con id: "+id;
     }
+
+
 }
