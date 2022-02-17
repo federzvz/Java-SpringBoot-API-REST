@@ -3,19 +3,21 @@ package com.example2.demo2.controllers;
 import com.example2.demo2.models.UsuarioModel;
 import com.example2.demo2.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuario")
-public class UsuarioController {
+public class UsuarioController implements ErrorController {
     @Autowired
     UsuarioService usuarioService;
+    static final String PATH ="/error";
 
     @GetMapping()
     public ArrayList<UsuarioModel> obtenerUsuario(){
@@ -44,7 +46,11 @@ public class UsuarioController {
 
     @GetMapping(path ="/{id}")
     public Optional<UsuarioModel> obtenerUsuarioPorId(@PathVariable("id") Long id){
-        return this.usuarioService.obtenerPorId(id);
+        try {
+            return this.usuarioService.obtenerPorId(id);
+        }catch (Exception e){
+            return null;
+        }
     }
 
     @GetMapping("/query")
@@ -64,6 +70,17 @@ public class UsuarioController {
     public ArrayList<UsuarioModel> obtenerUsuarioPorEmail(@RequestParam("email") String email){
         return this.usuarioService.obtenerPorEmail(email);
     }
+
+    @RequestMapping(value = PATH)
+    public ResponseEntity<String> error() {
+        return new ResponseEntity<String>("No se ha encontrado ninguna página web para URL especificada.",HttpStatus.NOT_FOUND);
+    }
+
+    public String getErrorPath() {
+        return PATH;
+    }
+
+
 
 
 }
