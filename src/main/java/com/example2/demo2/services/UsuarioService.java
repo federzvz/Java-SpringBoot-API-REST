@@ -17,8 +17,8 @@ public class UsuarioService {
         return (ArrayList<UsuarioModel>)usuarioRepository.findAll();
     }
 
-    public UsuarioModel guardarUsuario(UsuarioModel user){
-        return usuarioRepository.save(user);
+    public void guardarUsuario(UsuarioModel user){
+        usuarioRepository.save(user);
     }
 
     public Optional<UsuarioModel> obtenerPorId(Long id){
