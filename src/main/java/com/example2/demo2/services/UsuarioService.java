@@ -25,9 +25,10 @@ public class UsuarioService {
     /**
      * Guardamos un nuevo usuario
      * @param user Clase usuario.
+     * @return
      */
-    public void guardarUsuario(UsuarioModel user){
-        usuarioRepository.save(user);
+    public UsuarioModel guardarUsuario(UsuarioModel user){
+        return usuarioRepository.save(user);
     }
 
     /**

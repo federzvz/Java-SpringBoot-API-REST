@@ -114,6 +114,25 @@ public class UsuarioController implements ErrorController {
         return PATH;
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UsuarioModel> updateTutorial(@PathVariable("id") long id, @RequestBody UsuarioModel usuarioParam) {
+        Optional<UsuarioModel> usuarioData = usuarioService.obtenerPorId(id);
+
+        if (usuarioData.isPresent()) {
+            UsuarioModel _usuario = usuarioData.get();
+            _usuario.setNombre(usuarioParam.getNombre());
+            _usuario.setEmail(usuarioParam.getEmail());
+            _usuario.setEdad(usuarioParam.getEdad());
+            _usuario.setPrioridad(usuarioParam.getPrioridad());
+            _usuario.setTelefono(usuarioParam.getTelefono());
+            _usuario.setSexo(usuarioParam.getSexo());
+            usuarioService.guardarUsuario(_usuario);
+            return new ResponseEntity<UsuarioModel>(_usuario, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 
 
